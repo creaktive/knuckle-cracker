@@ -1,0 +1,16 @@
+# original crack by klau_solas@hackermail.com
+"Crack for WinRAR 3.20"
+[bb3dcc23daa6737d181763ea3203f0ff WinRAR.exe]
+1976	EB
+7a0b	EB
+c60a	EB
+c661	EB
+c77b	90 90
+c787	EB
+c94f	EB
+ca3f	E9
+ca41	1 0
+ca44	90
+cb9c	EB
+6452c	EB
+# Patch length: 00000100

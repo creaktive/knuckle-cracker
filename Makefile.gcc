@@ -1,0 +1,40 @@
+CC	= gcc
+RM	= rm -f
+CFLAGS	= -Wall -Os
+#DEFS	=
+#LDFLAGS	= -static
+
+# Uncomment under Win32 (CYGWIN/MinGW):
+#EXE	= .exe
+
+CRACKER	= knuckle_cracker$(EXE)
+COBJ	= escape.o main.o crk_parser.o md5.o patcher.o unbind.o
+
+BINDIFF = bin_diff$(EXE)
+DOBJ	= bin_diff.o escape.o md5.o
+
+all: $(CRACKER) $(BINDIFF)
+
+$(CRACKER): $(COBJ)
+	$(CC) ${LDFLAGS} -o $(CRACKER) $(COBJ)
+	strip $(CRACKER)
+
+$(BINDIFF): $(DOBJ)
+	$(CC) ${LDFLAGS} -o $(BINDIFF) $(DOBJ)
+	strip $(BINDIFF)
+
+crk_parser.o: crk_parser.h
+
+escape.o: escape.h
+
+md5.o: md5.h
+
+patcher.o: patcher.h
+
+patcher.o: unbind.h
+
+.c.o:
+	$(CC) ${CFLAGS} ${DEFS} -c $*.c 
+
+clean:
+	$(RM) $(CRACKER) $(BINDIFF) *.o core

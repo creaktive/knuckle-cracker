@@ -1,0 +1,33 @@
+CC	= bcc32
+RM	= del
+CFLAGS	= -O1 -q
+
+CRACKER	= knuckle_cracker.exe
+COBJ	= escape.obj main.obj crk_parser.obj md5.obj patcher.obj unbind.obj
+
+BINDIFF = bin_diff.exe
+DOBJ	= bin_diff.obj escape.obj md5.obj
+
+all: $(CRACKER) $(BINDIFF)
+
+$(CRACKER): $(COBJ)
+	$(CC) -e$(CRACKER) -q $(COBJ)
+
+$(BINDIFF): $(DOBJ)
+	$(CC) -e$(BINDIFF) -q $(DOBJ)
+
+crk_parser.obj: crk_parser.h
+
+escape.obj: escape.h
+
+md5.obj: md5.h
+
+patcher.obj: patcher.h
+
+patcher.obj: unbind.h
+
+.c.obj:
+	$(CC) ${CFLAGS} -c $&.c 
+
+clean:
+	$(RM) $(CRACKER) $(BINDIFF) *.obj
